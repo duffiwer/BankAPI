@@ -1,0 +1,228 @@
+openapi: 3.0.3
+info:
+  title: Banking API
+  description: API для управления банковскими счетами, транзакциями и переводами средств.
+  version: 1.0.11
+servers:
+  - url: http://localhost:8080
+    description: Локальный сервер
+tags:
+  - name:  Users
+    description: Операции с пользователями.
+  - name: Accounts
+    description: Операции с банковскими счетами.
+  - name: Transactions
+    description: Операции с транзакциями.
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Регистрация нового пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: Пользователь успешно зарегистрирован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Ошибка в запросе
+
+  /accounts:
+    get:
+      tags:
+        - Accounts
+      summary: Получить список всех счетов пользователя
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: ID пользователя, для которого нужно вывести счета
+      responses:
+        '200':
+          description: Список счетов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      tags:
+        - Accounts
+      summary: Создать новый банковский счет
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreation'
+      responses:
+        '201':
+          description: Счет успешно создан
+        '400':
+          description: Ошибка в запросе
+
+  /transactions:
+    post:
+      tags:
+        - Transactions
+      summary: Создать новую транзакцию
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+      responses:
+        '201':
+          description: Транзакция успешно создана
+        '400':
+          description: Ошибка в запросе
+        '404':
+          description: Один из счетов не найден
+
+  /transactions/history:
+    get:
+      tags:
+        - Transactions
+      summary: Получить историю транзакций для счета
+      parameters:
+        - in: query
+          name: account_id
+          required: true
+          schema:
+            type: integer
+          description: ID счета, для которого нужно вывести историю
+        - in: query
+          name: start_date
+          schema:
+            type: string
+            format: date
+          description: Начальная дата
+        - in: query
+          name: end_date
+          schema:
+            type: string
+            format: date
+          description: Конечная дата
+      responses:
+        '200':
+          description: История транзакций
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '404':
+          description: Счет не найден
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: Olga
+        email:
+          type: string
+          example: Olga@example.com
+
+    UserRegistration:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+          example: Olga
+        email:
+          type: string
+          example: Olga@example.com
+        password:
+          type: string
+          example: mysecretpass123
+
+    Account:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          example: 101
+        account_type:
+          type: string
+          description: Тип счета
+          example: savings
+        balance:
+          type: number
+          example: 5000.75
+        currency:
+          type: string
+          example: USD
+
+    AccountCreation:
+      type: object
+      required:
+        - user_id
+        - account_type
+        - currency
+      properties:
+        user_id:
+          type: integer
+          example: 1
+        account_type:
+          type: string
+          description: Тип счета
+          example: checking
+        currency:
+          type: string
+          description: Валюта счета
+          example: USD
+
+    Transaction:
+      type: object
+      required:
+        - from_account_id
+        - to_account_id
+        - amount
+        - currency
+      properties:
+        transaction_id:
+          type: integer
+          example: 1001
+        from_account_id:
+          type: integer
+          description: ID счета отправителя
+          example: 101
+        to_account_id:
+          type: integer
+          description: ID счета получателя
+          example: 202
+        amount:
+          type: number
+          description: Сумма перевода
+          example: 250.00
+        currency:
+          type: string
+          description: Валюта перевода
+          example: USD
+        timestamp:
+          type: string
+          format: Время
+          example: "2024-09-29 15:27:00"
