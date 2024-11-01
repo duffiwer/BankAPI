@@ -5,7 +5,18 @@ from datetime import datetime
 from prometheus_flask_exporter import PrometheusMetrics
 from sqlalchemy.orm import Session
 from prometheus_client import Counter, start_http_server
+import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),  
+        logging.StreamHandler()        
+    ]
+)
+
+logger = logging.getLogger(__name__)
 SWAGGER_URL = '/swagger'
 API_URL = '/static/openapi.yaml'  
 swaggerui_blueprint = get_swaggerui_blueprint(SWAGGER_URL, API_URL)
@@ -53,65 +64,92 @@ class Transaction(db.Model):
 @app.route('/users', methods=['POST'])
 def create_user():
     http_total_requests.labels(method=request.method, endpoint=request.path).inc()
-
+    logger.info("Creating user started")
+    
     data = request.get_json()
-
     existing_user = User.query.filter_by(email=data['email']).first()
+    
     if existing_user:
-        return jsonify(message="User is already exists"), 400
+        logger.warning("Attempt to create user with existing email: %s", data['email'])
+        return jsonify(message="User already exists"), 400
     
     new_user = User(username=data['username'], email=data['email'], password=data['password'])
     db.session.add(new_user)
     db.session.commit()
     user_created_total.inc()
+    logger.info("User successfully created: %s", new_user.username)
+    
     return jsonify(message="User was created"), 201
 
 @app.route('/accounts', methods=['POST'])
 def create_account():
     http_total_requests.labels(method=request.method, endpoint=request.path).inc()
+    logger.info("Creating account started")
 
     data = request.get_json()
     new_account = Account(user_id=data['user_id'], balance=data['balance'])
     db.session.add(new_account)
     db.session.commit()
+    logger.info("Account successfully created: ID=%s, User ID=%s", new_account.id, data['user_id'])
+    
     return jsonify(message="Account was created"), 201
+
+@app.route('/accounts', methods=['GET'])
+def get_accounts():
+    accounts = Account.query.all()
+    accounts_list = [{'id': account.id, 'user_id': account.user_id, 'balance': account.balance} for account in accounts]
+    logger.info("Getting accounts list completed, found %d accounts", len(accounts))
+    
+    return jsonify(accounts_list), 200
+
 @app.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     users_list = [{'id': user.id, 'username': user.username, 'email': user.email} for user in users]
+    logger.info("Getting users list completed, found %d users", len(users))
+    
     return jsonify(users_list), 200
 
 @app.route('/transactions', methods=['POST'])
 def create_transaction():
     http_total_requests.labels(method=request.method, endpoint=request.path).inc()
-
+    logger.info("Creating transaction started")
+    
     data = request.get_json()
-    session = db.session
+    
+    try:
+        from_account = db.session.get(Account, data['from_account_id'])
+        to_account = db.session.get(Account, data['to_account_id'])
 
-    from_account = session.get(Account, data['from_account_id'])
-    to_account = session.get(Account, data['to_account_id'])
+        if not from_account or not to_account:
+            logger.warning("One or both accounts not found: from_account_id=%s, to_account_id=%s", data['from_account_id'], data['to_account_id'])
+            return jsonify(message="One or two accounts not found"), 404
 
-    if not from_account or not to_account:
-        return jsonify(message="One ot two aacounts not found"), 404
+        if from_account.balance < data['amount']:
+            logger.warning("Not enough funds for transaction: balance=%s, requested amount=%s", from_account.balance, data['amount'])
+            return jsonify(message="Not enough money"), 400
 
-    if from_account.balance < data['amount']:
-        return jsonify(message="Not enought money"), 400
+        transaction = Transaction(
+            from_account_id=data['from_account_id'],
+            to_account_id=data['to_account_id'],
+            amount=data['amount'],
+            currency=data['currency']
+        )
 
-    transaction = Transaction(
-        from_account_id=data['from_account_id'],
-        to_account_id=data['to_account_id'],
-        amount=data['amount'],
-        currency=data['currency']
-    )
+        from_account.balance -= data['amount']
+        to_account.balance += data['amount']
 
-    from_account.balance -= data['amount']
-    to_account.balance += data['amount']
+        db.session.add(transaction)
+        db.session.commit()
+        transactions_total.inc() 
+        logger.info("Transaction successfully created: from account=%s, to account=%s, amount=%s", data['from_account_id'], data['to_account_id'], data['amount'])
 
-    db.session.add(transaction)
-    db.session.commit()
-    transactions_total.inc() 
+        return jsonify(message="Transaction was created"), 201
 
-    return jsonify(message="Transaction was created"), 201
+    except Exception as e:
+        db.session.rollback()
+        logger.error("Error while creating transaction: %s", e)
+        return jsonify(message="Transaction error"), 500
 
 if __name__ == '__main__':
     with app.app_context():
