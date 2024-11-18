@@ -536,3 +536,107 @@
 2024-11-01 03:23:12,951 - werkzeug - INFO - 127.0.0.1 - - [01/Nov/2024 03:23:12] "GET /metrics HTTP/1.1" 200 -
 2024-11-01 03:23:27,955 - werkzeug - INFO - 127.0.0.1 - - [01/Nov/2024 03:23:27] "GET /metrics HTTP/1.1" 200 -
 2024-11-01 03:23:42,952 - werkzeug - INFO - 127.0.0.1 - - [01/Nov/2024 03:23:42] "GET /metrics HTTP/1.1" 200 -
+2024-11-12 22:11:14,874 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-12 22:11:14,881 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 22:11:52,166 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "GET /swagger/ HTTP/1.1" 200 -
+2024-11-12 22:11:52,333 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "[36mGET /swagger/index.css HTTP/1.1[0m" 304 -
+2024-11-12 22:11:52,419 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "[36mGET /swagger/swagger-ui.css HTTP/1.1[0m" 304 -
+2024-11-12 22:11:52,520 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "[36mGET /swagger/swagger-ui-bundle.js HTTP/1.1[0m" 304 -
+2024-11-12 22:11:52,521 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "[36mGET /swagger/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 -
+2024-11-12 22:11:52,962 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "[36mGET /swagger/favicon-32x32.png HTTP/1.1[0m" 304 -
+2024-11-12 22:11:52,969 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:11:52] "GET /static/openapi.yaml HTTP/1.1" 200 -
+2024-11-12 22:13:56,176 - __main__ - INFO - Getting accounts list completed, found 2 accounts
+2024-11-12 22:13:56,178 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:13:56] "GET /accounts HTTP/1.1" 200 -
+2024-11-12 22:13:56,252 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:13:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 22:14:35,506 - __main__ - INFO - Getting users list completed, found 10 users
+2024-11-12 22:14:35,507 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:14:35] "GET /users HTTP/1.1" 200 -
+2024-11-12 22:15:08,881 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:15:08] "[33mGET /user_created_total HTTP/1.1[0m" 404 -
+2024-11-12 22:18:32,377 - __main__ - INFO - Creating user started
+2024-11-12 22:18:32,398 - __main__ - INFO - User successfully created: user56
+2024-11-12 22:18:32,402 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:18:32] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+2024-11-12 22:18:49,052 - __main__ - INFO - Getting users list completed, found 11 users
+2024-11-12 22:18:49,053 - werkzeug - INFO - 127.0.0.1 - - [12/Nov/2024 22:18:49] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:24:35,299 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:24:35,300 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:26:42,390 - __main__ - INFO - Creating user started
+2024-11-18 14:26:42,408 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:26:42] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 14:27:19,753 - __main__ - INFO - Creating user started
+2024-11-18 14:27:19,769 - __main__ - INFO - User successfully created: user25
+2024-11-18 14:27:19,769 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:27:19] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+2024-11-18 14:29:20,914 - __main__ - INFO - Getting users list completed, found 12 users
+2024-11-18 14:29:20,916 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:29:20] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:34:16,816 - opentelemetry.trace - WARNING - Overriding of current TracerProvider is not allowed
+2024-11-18 14:34:18,628 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:34:18,629 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:40:59,163 - opentelemetry.trace - WARNING - Overriding of current TracerProvider is not allowed
+2024-11-18 14:41:01,007 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:41:01,008 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:41:41,572 - __main__ - INFO - Getting users list completed, found 12 users
+2024-11-18 14:41:41,574 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:41:41] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:42:17,326 - opentelemetry.trace - WARNING - Overriding of current TracerProvider is not allowed
+2024-11-18 14:42:19,166 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:42:19,166 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:42:24,126 - __main__ - INFO - Getting users list completed, found 12 users
+2024-11-18 14:42:24,131 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:42:24] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:43:06,518 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:43:06,520 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:43:22,336 - __main__ - INFO - Getting users list completed, found 12 users
+2024-11-18 14:43:22,339 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:43:22] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:43:42,682 - __main__ - INFO - Getting accounts list completed, found 2 accounts
+2024-11-18 14:43:42,683 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:43:42] "GET /accounts HTTP/1.1" 200 -
+2024-11-18 14:46:11,671 - __main__ - INFO - Creating user started
+2024-11-18 14:46:11,678 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:46:11] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 14:46:18,272 - __main__ - INFO - Creating user started
+2024-11-18 14:46:18,278 - __main__ - WARNING - Attempt to create user with existing email: user25@example.com
+2024-11-18 14:46:18,280 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:46:18] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 14:50:06,089 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.66.66.49:8080
+2024-11-18 14:50:06,089 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-18 14:50:39,721 - __main__ - INFO - Creating user started
+2024-11-18 14:50:39,732 - __main__ - WARNING - Attempt to create user with existing email: user25@example.com
+2024-11-18 14:50:39,735 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:50:39] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 14:50:55,035 - __main__ - INFO - Getting users list completed, found 12 users
+2024-11-18 14:50:55,037 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:50:55] "GET /users HTTP/1.1" 200 -
+2024-11-18 14:51:44,019 - __main__ - INFO - Getting accounts list completed, found 2 accounts
+2024-11-18 14:51:44,021 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:51:44] "GET /accounts HTTP/1.1" 200 -
+2024-11-18 14:51:53,117 - __main__ - INFO - Creating user started
+2024-11-18 14:51:53,120 - __main__ - WARNING - Attempt to create user with existing email: user25@example.com
+2024-11-18 14:51:53,121 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:51:53] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 14:54:39,021 - __main__ - INFO - Creating user started
+2024-11-18 14:54:39,026 - __main__ - WARNING - Attempt to create user with existing email: user25@example.com
+2024-11-18 14:54:39,027 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 14:54:39] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 15:08:08,856 - __main__ - INFO - Creating user started
+2024-11-18 15:08:08,858 - __main__ - WARNING - Attempt to create user with existing email: user25@example.com
+2024-11-18 15:08:08,859 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 15:08:08] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 15:09:30,129 - __main__ - INFO - Creating user started
+2024-11-18 15:09:30,152 - __main__ - INFO - User successfully created: user71
+2024-11-18 15:09:30,154 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 15:09:30] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+2024-11-18 15:09:35,818 - __main__ - INFO - Creating user started
+2024-11-18 15:09:35,821 - __main__ - WARNING - Attempt to create user with existing email: user71@example.com
+2024-11-18 15:09:35,823 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 15:09:35] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
+2024-11-18 15:12:19,207 - __main__ - INFO - Creating user started
+2024-11-18 15:12:19,223 - __main__ - INFO - User successfully created: user64
+2024-11-18 15:12:19,224 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 15:12:19] "[35m[1mPOST /users HTTP/1.1[0m" 201 -
+2024-11-18 15:12:34,423 - __main__ - INFO - Creating user started
+2024-11-18 15:12:34,424 - __main__ - WARNING - Attempt to create user with existing email: user71@example.com
+2024-11-18 15:12:34,426 - werkzeug - INFO - 127.0.0.1 - - [18/Nov/2024 15:12:34] "[31m[1mPOST /users HTTP/1.1[0m" 400 -
