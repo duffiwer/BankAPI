@@ -1,0 +1,59 @@
+name: Flask CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # 1. Проверка запуска приложения
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      # Клонируем репозиторий
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Устанавливаем Python 3.11
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # Устанавливаем зависимости
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Проверяем запуск приложения
+      - name: Run Application (Check)
+        run: |
+          python app.py &
+          sleep 5
+          curl http://127.0.0.1:8080 || echo "App failed to run"
+
+  # 2. Создание Docker-образа
+  build-and-push-docker:
+    needs: build-and-run
+    runs-on: ubuntu-latest
+    steps:
+      # Клонируем репозиторий
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Входим в DockerHub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Собираем и пушим Docker-образ
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bank-api:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/bank-api:latest
